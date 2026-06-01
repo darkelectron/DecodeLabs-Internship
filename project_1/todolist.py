@@ -55,9 +55,10 @@ def fetch_todolist():
 
 def view_todolist():
     todo_items = fetch_todolist()
-    print("TODO LIST")
-    print(f"{todo_items}")
+    print("# | ITEM")
+    print(f"{todo_items[0][0]} | {todo_items[0][1]}")
 
+    print("\n\n")
 
 def add_todo_item(item):
     try:
@@ -82,7 +83,7 @@ def edit_item(item):
 def main():
     check_db_exist()
     while 1:
-        print("TODOLIST\n\n")
+        print("TODOLIST APP\n\n")
         print("1. View Tasks")
         print("2. Add Task")
         print("3. Delete Task")
