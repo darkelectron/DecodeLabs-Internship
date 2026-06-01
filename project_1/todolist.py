@@ -1,5 +1,26 @@
 #! /usr/bin/python
 import sqlite3
+import os
+
+def check_db_exist():
+    if os.path.exists('todolist.db'):
+        return
+    try:
+        sqlite_connection = sqlite3.connect('todolist.db')
+        cursor = sqlite_connection.cursor()
+        cursor.execute("""
+            CREATE TABLE todos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                item TEXT NOT NULL
+            )
+        """)
+        sqlite_connection.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        if sqlite_connection:
+            sqlite_connection.close()
+
 def connect_to_db():
     try:
         sqlite_connection = sqlite3.connect('todolist.db')
@@ -31,7 +52,15 @@ def view_todolist():
 
 
 def add_todo_item(item):
-    print("Enter Item: ")
+    try:
+        sqlite_connection, cursor = connect_to_db()
+        cursor.execute("INSERT INTO todos (item) VALUES (?)", (item,))
+        sqlite_connection.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        if sqlite_connection:
+            sqlite_connection.close()
 
 
 def delete_item(item):
