@@ -80,6 +80,7 @@ def edit_item(item):
 
 
 def main():
+    check_db_exist()
     while 1:
         print("TODOLIST\n\n")
         print("1. View Tasks")
