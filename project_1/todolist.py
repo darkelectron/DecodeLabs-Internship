@@ -1,4 +1,7 @@
 #! /usr/bin/python
+#
+# This script is written and tested on Archlinux
+
 import sqlite3
 import os
 
@@ -6,6 +9,7 @@ import os
 def clear_sreen():
     print('clear')
 
+# this only works if no file exists
 def check_db_exist():
     if os.path.exists('todolist.db'):
         return
