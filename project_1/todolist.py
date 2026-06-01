@@ -1,11 +1,33 @@
 #! /usr/bin/python
+import sqlite3
+def connect_to_db():
+    try:
+        sqlite_connection = sqlite3.connect('todolist.db')
+        cursor = sqlite_connection.cursor()
+        return sqlite_connection, cursor
+    except Exception as e:
+        print(e)
+        return None, None
+
 
 def fetch_todolist():
-    print("fetching to-do list")
+    try:
+        sqlite_connection, cursor = connect_to_db()
+        cursor.execute("SELECT * FROM todos")
+        items = cursor.fetchall()
+        return items
+    except Exception as e:
+        print(e)
+        return None
+    finally:
+        if sqlite_connection:
+            sqlite_connection.close()
 
 
 def view_todolist():
+    todo_items = fetch_todolist()
     print("TODO LIST")
+    print(f"{todo_items}")
 
 
 def add_todo_item(item):
