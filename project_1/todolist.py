@@ -6,8 +6,8 @@ import sqlite3
 import os
 
 
-def clear_sreen():
-    print('clear')
+def clear_screen():
+    os.system('clear')
 
 # this only works if no file exists
 def check_db_exist():
