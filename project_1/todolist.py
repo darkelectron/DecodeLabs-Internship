@@ -9,6 +9,8 @@ import os
 def clear_screen():
     os.system('clear')
 
+    print("TODOLIST APP\n\n")
+
 # this only works if no file exists
 def check_db_exist():
     if os.path.exists('todolist.db'):
@@ -54,9 +56,15 @@ def fetch_todolist():
 
 
 def view_todolist():
+    clear_screen()
     todo_items = fetch_todolist()
-    print("# | ITEM")
-    print(f"{todo_items[0][0]} | {todo_items[0][1]}")
+    print("# | Description")
+
+    if todo_items:
+        for item in todo_items:
+            print(f"{item[0]} | {item[1]}")
+    else:
+        print("No todo items found")
 
     print("\n\n")
 
@@ -82,33 +90,32 @@ def edit_item(item):
 
 def main():
     check_db_exist()
+    # clear_screen()
+
     while 1:
-        print("TODOLIST APP\n\n")
-        print("1. View Tasks")
-        print("2. Add Task")
-        print("3. Delete Task")
-        print("4. Edit Task")
-        print("5. Exit/Quit")
+        view_todolist()
+
+        print("1. Add Task")
+        print("2. Delete Task (coming soon)")
+        print("3. Edit Task (coming soon)")
+        print("4. Exit/Quit")
 
         option = input("Enter Option: ")
 
         try:
             if int(option) == 1:
-                view_todolist()
-                continue
-            elif int(option) == 2:
                 item = input("Enter Item: ")
+                print(item)
                 add_todo_item(item)
                 continue
-            elif int(option) == 3:
-                view_todolist()
+            elif int(option) == 2:
                 item = input("Enter Item to Delete: ")
                 delete_item(item)
                 continue
-            elif int(option) == 4:
+            elif int(option) == 3:
                 edit_item()
                 continue
-            elif int(option) == 5:
+            elif int(option) == 4:
                 break
             else:
                 print("Option Not Found")
