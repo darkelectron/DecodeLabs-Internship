@@ -7,16 +7,18 @@ import os
 
 
 def clear_screen():
-    os.system('clear')
+    os.system("clear")
 
     print("TODOLIST APP\n\n")
 
+
 # this only works if no file exists
 def check_db_exist():
-    if os.path.exists('todolist.db'):
+    if os.path.exists("todolist.db"):
         return
+
     try:
-        sqlite_connection = sqlite3.connect('todolist.db')
+        sqlite_connection = sqlite3.connect("todolist.db")
         cursor = sqlite_connection.cursor()
         cursor.execute("""
             CREATE TABLE todos (
@@ -31,9 +33,10 @@ def check_db_exist():
         if sqlite_connection:
             sqlite_connection.close()
 
+
 def connect_to_db():
     try:
-        sqlite_connection = sqlite3.connect('todolist.db')
+        sqlite_connection = sqlite3.connect("todolist.db")
         cursor = sqlite_connection.cursor()
         return sqlite_connection, cursor
     except Exception as e:
@@ -67,6 +70,7 @@ def view_todolist():
         print("No todo items found")
 
     print("\n\n")
+
 
 def add_todo_item(item):
     try:
@@ -125,5 +129,5 @@ def main():
             continue
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
