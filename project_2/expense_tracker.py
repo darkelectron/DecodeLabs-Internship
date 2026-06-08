@@ -7,16 +7,17 @@ import os
 
 
 def clear_screen():
-    os.system('clear')
+    os.system("clear")
 
     print("EXPENSE TRACKING APP\n\n")
 
+
 def check_db_exist():
-    if os.path.exists('expenses.db'):
+    if os.path.exists("expenses.db"):
         return
 
     try:
-        sqlite_connection = sqlite3.connect('expenses.db')
+        sqlite_connection = sqlite3.connect("expenses.db")
         cursor = sqlite_connection.cursor()
         cursor.execute("""
             CREATE TABLE sessions (
@@ -44,7 +45,7 @@ def check_db_exist():
 
 def connect_to_db():
     try:
-        sqlite_connection = sqlite3.connect('expenses.db')
+        sqlite_connection = sqlite3.connect("expenses.db")
         cursor = sqlite_connection.cursor()
         return sqlite_connection, cursor
     except Exception as e:
@@ -72,7 +73,21 @@ def fetch_expenses():
         if sqlite_connection:
             sqlite_connection.close()
 
+
+def create_session():
+    try:
+        sqlite_connection, cursor = connect_to_db()
+        cursor.execute("INSERT INTO sessions DEFAULT VALUES")
+        session_id = cursor.lastrowid
+        sqlite_connection.commit()
+        sqlite_connection.close()
+        return session_id
+    except Exception as e:
+        print(e)
+
+
 def view_previous_expenses():
+    clear_screen()
     sessions = fetch_expenses()
 
     if not sessions:
@@ -82,25 +97,31 @@ def view_previous_expenses():
             print(f"Session {id}  ({created_at[:19]})  {count} items  {total:.2f}")
     print("\n\n")
 
+
 def accumulate_expenses():
-    # sqlite_connection, cursor = connect_to_db()
-    total = 0
+    # TODO: use try-except-finally for sqlite
+    session_id = create_session()
+    sqlite_connection, cursor = connect_to_db()
 
     print("Enter expenses one by one (press Enter with no value to stop): \n\n")
 
     while True:
-        try:
-            expense = input("Enter Expense: ")
+        value = input("Enter Expense: ")
 
-            if expense == "":
-                break
-            else:
-                total += int(expense)
+        if value == "":
+            break
+        try:
+            amount = float(value)
+            cursor.execute(
+                "INSERT INTO expenses (session_id, item, amount) VALUES (?, ?, ?)",
+                (session_id, "Expense", amount),
+            )
         except ValueError:
             print("Invalid Data")
             continue
-        finally:
-            print(total)
+
+    sqlite_connection.commit()
+    sqlite_connection.close()
 
 
 def main():
@@ -132,5 +153,5 @@ def main():
             continue
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
