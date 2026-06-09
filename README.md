@@ -67,3 +67,7 @@ Crack time: 117.8 trillion centuries
 python project_3/random_password_generator.py
 ```
 
+---
+
+Thank you to DecodeLabs for this internship opportunity.
+
