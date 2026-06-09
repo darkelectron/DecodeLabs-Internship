@@ -18,6 +18,8 @@ A CLI todo list manager with SQLite persistence.
 - Add, view, and manage tasks
 - Auto-creates `todolist.db` on first run
 
+[Project 1 showcase](project_1/project1_showcase.mp4)
+
 ```bash
 python project_1/todolist.py
 ```
