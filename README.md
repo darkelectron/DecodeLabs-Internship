@@ -4,6 +4,13 @@ Three Python CLI projects built during the DecodeLabs internship program for Pyt
 
 _(period May 28 - June 28)_
 
+> **NB:** All scripts/apps were tested on Arch Linux.
+
+## Requirements
+
+- Python 3.x
+- SQLite3 (standard library)
+
 ## Projects
 
 ### Project 1: Todo List (`project_1/`)
@@ -59,9 +66,4 @@ Crack time: 117.8 trillion centuries
 ```bash
 python project_3/random_password_generator.py
 ```
-
-## Requirements
-
-- Python 3.x
-- SQLite3 (standard library)
 
