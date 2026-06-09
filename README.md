@@ -1,6 +1,8 @@
 # DecodeLabs Internship
 
-Two Python CLI projects built during the DecodeLabs internship program.
+Three Python CLI projects built during the DecodeLabs internship program for Python Programming.
+
+_(period May 28 - June 28)_
 
 ## Projects
 
